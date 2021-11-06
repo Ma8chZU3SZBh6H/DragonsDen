@@ -36,6 +36,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         .addOnCompleteListener(task -> {
                             if (task.isSuccessful()){
                                 Toast.makeText(this, "Login successful!", Toast.LENGTH_SHORT).show();
+                                Intent i = new Intent(this, DashboardActivity.class);
+                                startActivity(i);
+                                finish();
                             }
                             else{
                                 Toast.makeText(this, "Login failed - "+task.getException().getCause().toString(), Toast.LENGTH_SHORT).show();

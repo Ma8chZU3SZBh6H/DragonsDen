@@ -3,6 +3,7 @@ package com.example.dragonsden;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -46,6 +47,9 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                                     auth.signInWithEmailAndPassword(text_email, text_password).addOnCompleteListener(RegisterActivity.this, task2 -> {
                                         if (task2.isSuccessful()){
                                             Toast.makeText(RegisterActivity.this, "Your are logged in!", Toast.LENGTH_SHORT).show();
+                                            Intent i = new Intent(this, DashboardActivity.class);
+                                            startActivity(i);
+                                            finish();
                                         }
                                         else{
                                             Toast.makeText(RegisterActivity.this, "Login failed - " + task.getException().getCause().toString(), Toast.LENGTH_SHORT).show();
