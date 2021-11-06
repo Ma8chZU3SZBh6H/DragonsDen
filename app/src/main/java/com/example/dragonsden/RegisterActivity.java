@@ -34,16 +34,23 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
                 String text_email = email.getText().toString();
                 String text_password = password.getText().toString();
-                String text_password_confirm = password.getText().toString();
+                String text_password_confirm = password_confirm.getText().toString();
 
                 if (!text_password.equals(text_password_confirm)){
                     password.setError("Password's did not match");
                 }
                 else{
-                    auth.createUserWithEmailAndPassword(email.getText().toString(), password.getText().toString())
+                    auth.createUserWithEmailAndPassword(text_email, text_password)
                             .addOnCompleteListener(RegisterActivity.this, task -> {
                                 if (task.isSuccessful()){
-                                    Toast.makeText(RegisterActivity.this, "Registration was successful!", Toast.LENGTH_SHORT).show();
+                                    auth.signInWithEmailAndPassword(text_email, text_password).addOnCompleteListener(RegisterActivity.this, task2 -> {
+                                        if (task2.isSuccessful()){
+                                            Toast.makeText(RegisterActivity.this, "Your are logged in!", Toast.LENGTH_SHORT).show();
+                                        }
+                                        else{
+                                            Toast.makeText(RegisterActivity.this, "Login failed - " + task.getException().getCause().toString(), Toast.LENGTH_SHORT).show();
+                                        }
+                                    });
                                 }
                                 else{
                                     Toast.makeText(RegisterActivity.this, "Registration failed - "+task.getException().getMessage(), Toast.LENGTH_SHORT).show();
