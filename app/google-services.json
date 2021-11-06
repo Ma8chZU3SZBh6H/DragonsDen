@@ -1,0 +1,106 @@
+{
+  "project_info": {
+    "project_number": "401978767564",
+    "firebase_url": "https://loreg-2ab5b-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "loreg-2ab5b",
+    "storage_bucket": "loreg-2ab5b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:401978767564:android:ac7d6b18faf74e63256a69",
+        "android_client_info": {
+          "package_name": "com.example.dragonden"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "401978767564-efm1h7gpmngqqbqr39s27dv0nb4bei29.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD1BlYO0tomVc3L69z8iYGTuGXNQHpl9T4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "401978767564-efm1h7gpmngqqbqr39s27dv0nb4bei29.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:401978767564:android:390e257b7d89a3e7256a69",
+        "android_client_info": {
+          "package_name": "com.example.dragonsden"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "401978767564-efm1h7gpmngqqbqr39s27dv0nb4bei29.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD1BlYO0tomVc3L69z8iYGTuGXNQHpl9T4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "401978767564-efm1h7gpmngqqbqr39s27dv0nb4bei29.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:401978767564:android:c9306a801237e089256a69",
+        "android_client_info": {
+          "package_name": "com.example.loreg"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "401978767564-q7r8ej4l2b12nbq6s9b9pqmthocnbc0k.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.loreg",
+            "certificate_hash": "8103ad4ab0447463b3d01ea6209b921012932cc1"
+          }
+        },
+        {
+          "client_id": "401978767564-efm1h7gpmngqqbqr39s27dv0nb4bei29.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD1BlYO0tomVc3L69z8iYGTuGXNQHpl9T4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "401978767564-efm1h7gpmngqqbqr39s27dv0nb4bei29.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
