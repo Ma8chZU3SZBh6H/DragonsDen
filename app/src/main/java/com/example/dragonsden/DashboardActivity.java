@@ -26,7 +26,7 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
     private FirebaseUser user;
     private RecyclerView list;
     private RecyclerAdapter listAdapter;
-    private ArrayList<String> listItems = new ArrayList<>();
+    private ArrayList<ListItem> listItems = new ArrayList<>();
     private EditText textFieldAdd;
 
     @Override
@@ -41,7 +41,7 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
         textFieldAdd = findViewById(R.id.dashboard_text_add);
 
         list = findViewById(R.id.dashboard_list);
-        listItems.add("Loading...");
+        listItems.add(new ListItem("Loading...", "0"));
         listAdapter= new RecyclerAdapter(this, listItems);
         list.setAdapter(listAdapter);
         list.setLayoutManager(new LinearLayoutManager(this));
@@ -52,7 +52,8 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
                 listItems.clear();
                 for (DataSnapshot snap : snapshot.getChildren()){
                     System.out.println(snap.child("test").getValue().toString());
-                    listItems.add(snap.child("test").getValue().toString());
+                    DataSnapshot s = snap.child("test");
+                    listItems.add(new ListItem(s.getValue().toString(), snap.getKey().toString()));
                 }
                 listAdapter.notifyDataSetChanged();
             }
