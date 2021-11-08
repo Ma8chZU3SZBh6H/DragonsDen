@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -15,13 +16,13 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class RegisterActivity extends AppCompatActivity implements View.OnClickListener {
-    private FirebaseAuth auth;
+    private BaseFire baseFire;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-        auth = FirebaseAuth.getInstance();
+        baseFire = new BaseFire(this);
     }
 
     @Override
@@ -37,29 +38,25 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 String text_password = password.getText().toString();
                 String text_password_confirm = password_confirm.getText().toString();
 
-                if (!text_password.equals(text_password_confirm)){
-                    password.setError("Password's did not match");
-                }
-                else{
-                    auth.createUserWithEmailAndPassword(text_email, text_password)
-                            .addOnCompleteListener(RegisterActivity.this, task -> {
-                                if (task.isSuccessful()){
-                                    auth.signInWithEmailAndPassword(text_email, text_password).addOnCompleteListener(RegisterActivity.this, task2 -> {
-                                        if (task2.isSuccessful()){
-                                            Toast.makeText(RegisterActivity.this, "Your are logged in!", Toast.LENGTH_SHORT).show();
-                                            Intent i = new Intent(this, DashboardActivity.class);
-                                            startActivity(i);
-                                            finish();
-                                        }
-                                        else{
-                                            Toast.makeText(RegisterActivity.this, "Login failed - " + task.getException().getCause().toString(), Toast.LENGTH_SHORT).show();
-                                        }
-                                    });
+                if(baseFire.validateTextViews(new TextView[]{email}, "required|min:6|max:256") && baseFire.validateTextView(password, "equals:"+text_password_confirm)){
+                    baseFire.register(text_email, text_password, task -> {
+                        if (task.isSuccessful()){
+                            baseFire.login(text_email, text_password, task2 -> {
+                                if (task2.isSuccessful()){
+                                    Toast.makeText(RegisterActivity.this, "Your are logged in!", Toast.LENGTH_SHORT).show();
+                                    Intent i = new Intent(this, DashboardActivity.class);
+                                    startActivity(i);
+                                    finish();
                                 }
                                 else{
-                                    Toast.makeText(RegisterActivity.this, "Registration failed - "+task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(RegisterActivity.this, "Login failed - " + task.getException().getCause().toString(), Toast.LENGTH_SHORT).show();
                                 }
                             });
+                        }
+                        else{
+                            Toast.makeText(RegisterActivity.this, "Registration failed - "+task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    });
                 }
             }
                 break;

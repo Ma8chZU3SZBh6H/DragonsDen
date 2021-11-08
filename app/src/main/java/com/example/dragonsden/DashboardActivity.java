@@ -21,48 +21,16 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 
 public class DashboardActivity extends AppCompatActivity implements View.OnClickListener {
-    private FirebaseAuth auth;
-    private DatabaseReference database;
-    private FirebaseUser user;
-    private RecyclerView list;
-    private RecyclerAdapter listAdapter;
-    private ArrayList<ListItem> listItems = new ArrayList<>();
-    private EditText textFieldAdd;
+
+    BaseFire baseFire;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
-
-        auth = FirebaseAuth.getInstance();
-        database = FirebaseDatabase.getInstance().getReference();
-        user = auth.getCurrentUser();
-
-        textFieldAdd = findViewById(R.id.dashboard_text_add);
-
-        list = findViewById(R.id.dashboard_list);
-        listItems.add(new ListItem("Loading...", "0"));
-        listAdapter= new RecyclerAdapter(this, listItems);
-        list.setAdapter(listAdapter);
-        list.setLayoutManager(new LinearLayoutManager(this));
-
-        database.child("posts_v1").child(user.getUid()).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                listItems.clear();
-                for (DataSnapshot snap : snapshot.getChildren()){
-                    System.out.println(snap.child("test").getValue().toString());
-                    DataSnapshot s = snap.child("test");
-                    listItems.add(new ListItem(s.getValue().toString(), snap.getKey().toString()));
-                }
-                listAdapter.notifyDataSetChanged();
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
+        baseFire = new BaseFire(this);
+        baseFire.updateList(findViewById(R.id.dashboard_list));
     }
 
 
@@ -71,14 +39,16 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
         switch (view.getId()){
             case R.id.dashboard_logout:
             {
-                auth.signOut();
+                baseFire.logout();
                 Intent i = new Intent(this, MainActivity.class);
                 startActivity(i);
                 finish();
             }
             break;
             case R.id.dashboard_add:
-                database.child("posts_v1").child(user.getUid()).push().child("test").setValue(textFieldAdd.getText().toString());
+                Intent i = new Intent(this, NewEntryActivity.class);
+                startActivity(i);
+                //database.child("posts_v1").child(user.getUid()).push().child("test").setValue(textFieldAdd.getText().toString());
                 break;
             default:
                 break;

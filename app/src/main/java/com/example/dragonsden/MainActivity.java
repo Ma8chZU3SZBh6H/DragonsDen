@@ -1,23 +1,30 @@
 package com.example.dragonsden;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
+import java.util.ArrayList;
+
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
-    private FirebaseAuth auth;
+    private BaseFire baseFire;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        auth = FirebaseAuth.getInstance();
+        baseFire = new BaseFire(this);
     }
 
     @Override
@@ -32,18 +39,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 String text_email = email.getText().toString();
                 String text_password = password.getText().toString();
 
-                auth.signInWithEmailAndPassword(text_email, text_password)
-                        .addOnCompleteListener(task -> {
-                            if (task.isSuccessful()){
-                                Toast.makeText(this, "Login successful!", Toast.LENGTH_SHORT).show();
-                                Intent i = new Intent(this, DashboardActivity.class);
-                                startActivity(i);
-                                finish();
-                            }
-                            else{
-                                Toast.makeText(this, "Login failed - "+task.getException().getCause().toString(), Toast.LENGTH_SHORT).show();
-                            }
-                        });
+                if(baseFire.validateTextViews(new TextView[]{email, password}, "required|min:6|max:256")){
+                    baseFire.login(text_email, text_password, task -> {
+                        if (task.isSuccessful()){
+                            Toast.makeText(MainActivity.this, "Login successful!", Toast.LENGTH_SHORT).show();
+                            Intent i = new Intent(MainActivity.this, DashboardActivity.class);
+                            startActivity(i);
+                            finish();
+                        }
+                        else{
+                            Toast.makeText(MainActivity.this, "Login failed", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
             }
                 break;
             case R.id.btn_link_register:

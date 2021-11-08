@@ -8,51 +8,66 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/dashboard_list"
-        android:layout_width="409dp"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginStart="1dp"
-        android:layout_marginEnd="1dp"
+        android:layout_marginStart="18dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="18dp"
+        android:layout_marginBottom="16dp"
         app:layout_constraintBottom_toTopOf="@+id/dashboard_logout"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/dashboard_text_add" />
+        app:layout_constraintTop_toBottomOf="@+id/textView8"
+        app:layout_constraintVertical_bias="0.0" />
 
     <Button
         android:id="@+id/dashboard_logout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginBottom="16dp"
         android:onClick="onClick"
         android:text="Logout"
         app:backgroundTint="#FF0000"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <EditText
-        android:id="@+id/dashboard_text_add"
-        android:layout_width="288dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="1dp"
-        android:layout_marginTop="3dp"
-        android:ems="10"
-        android:hint="Text"
-        android:inputType="textPersonName"
+    <TextView
+        android:id="@+id/textView8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="18dp"
+        android:layout_marginTop="16dp"
+        android:text="Your pile"
+        android:textSize="24sp"
         app:layout_constraintEnd_toStartOf="@+id/dashboard_add"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
+        android:id="@+id/button3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:onClick="onClick"
+        android:text="Search"
+        app:backgroundTint="#FF0000"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
         android:id="@+id/dashboard_add"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="3dp"
-        android:layout_marginEnd="12dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
         android:onClick="onClick"
         android:text="Add"
         app:backgroundTint="#FF0000"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/button3"
         app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
