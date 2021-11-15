@@ -76,6 +76,10 @@ public class BaseFire {
         });
     }
 
+    public void deleteItem(String item_id){
+        database.child("posts_v1").child(user.getUid()).child(item_id).removeValue();
+    }
+
     public boolean validateTextView(TextView input, String rules){
         ArrayList<Validation.ValidationMessage> errors =  validation.validate(input.getText().toString(), rules);
         if (errors.size() > 0){

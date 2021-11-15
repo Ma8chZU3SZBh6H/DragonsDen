@@ -1,6 +1,7 @@
 package com.example.dragonsden;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.time.Instant;
 import java.util.ArrayList;
 
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHolder> {
@@ -43,9 +45,16 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         ListItem listItem = data.get(position);
         holder.text.setText(listItem.text);
-        holder.btn.setOnClickListener(view -> {
-            System.out.println(listItem.id);
-            database.child("posts_v1").child(user.getUid()).child(listItem.id).removeValue();
+        holder.btn_view.setOnClickListener(view -> {
+            Intent instant = new Intent(context, ItemActivity.class);
+
+            instant.putExtra("id", listItem.id);
+            instant.putExtra("text", listItem.text);
+            instant.putExtra("money", listItem.money);
+            instant.putExtra("species", listItem.species);
+            instant.putExtra("used", listItem.used);
+
+            context.startActivity(instant);
         });
     }
 
@@ -56,12 +65,12 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public TextView text;
-        public Button btn;
+        public Button btn_view;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             text = itemView.findViewById(R.id.row_text);
-            btn = itemView.findViewById(R.id.row_btn_delete);
+            btn_view = itemView.findViewById(R.id.row_btn_view);
         }
     }
 }
