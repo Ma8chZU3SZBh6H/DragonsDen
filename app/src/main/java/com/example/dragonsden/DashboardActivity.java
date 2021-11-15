@@ -40,15 +40,18 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
             case R.id.dashboard_logout:
             {
                 baseFire.logout();
-                Intent i = new Intent(this, MainActivity.class);
-                startActivity(i);
+                Intent logout_i = new Intent(this, MainActivity.class);
+                startActivity(logout_i);
                 finish();
             }
             break;
             case R.id.dashboard_add:
-                Intent i = new Intent(this, NewEntryActivity.class);
-                startActivity(i);
-                //database.child("posts_v1").child(user.getUid()).push().child("test").setValue(textFieldAdd.getText().toString());
+                Intent new_i = new Intent(this, NewEntryActivity.class);
+                startActivity(new_i);
+                break;
+            case R.id.dashboard_btn_search:
+                Intent search_i = new Intent(this, SearchActivity.class);
+                startActivity(search_i);
                 break;
             default:
                 break;

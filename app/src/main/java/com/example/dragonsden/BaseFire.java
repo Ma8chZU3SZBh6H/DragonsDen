@@ -42,7 +42,7 @@ public class BaseFire {
         cx = _cx;
     }
 
-    public void updateList(RecyclerView list){
+    public void updateListWithFilter(RecyclerView list, String filter){
         RecyclerAdapter listAdapter;
         ArrayList<ListItem> listItems = new ArrayList<>();
         listAdapter = new RecyclerAdapter(cx, listItems);
@@ -54,17 +54,15 @@ public class BaseFire {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 listItems.clear();
                 for (DataSnapshot snap : snapshot.getChildren()){
-
                     String name = snap.child("text").getValue().toString();
-                    String id = snap.getKey().toString();
-                    String used = snap.child("used").getValue().toString();
-                    String money = snap.child("money").getValue().toString();
-                    String species = snap.child("species").getValue().toString();
-
-                    ListItem item = new ListItem(name, id, used, money, species);
-
-
-                    listItems.add(item);
+                    if (name.contains(filter)){
+                        String id = snap.getKey().toString();
+                        String used = snap.child("used").getValue().toString();
+                        String money = snap.child("money").getValue().toString();
+                        String species = snap.child("species").getValue().toString();
+                        ListItem item = new ListItem(name, id, used, money, species);
+                        listItems.add(item);
+                    }
                 }
                 listAdapter.notifyDataSetChanged();
             }
@@ -75,6 +73,10 @@ public class BaseFire {
             }
         });
     }
+    public void updateList(RecyclerView list){
+        updateListWithFilter(list, "");
+    }
+
 
     public void deleteItem(String item_id){
         database.child("posts_v1").child(user.getUid()).child(item_id).removeValue();
